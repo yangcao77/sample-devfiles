@@ -1,0 +1,72 @@
+schemaVersion: 2.2.0-latest
+metadata:
+  name: nodejs
+  version: 1.0.0
+components:
+  - name: rhel8-runtime
+    # this container want to have
+    # deployment annotation `deployment-annotation-boolean=false`, `deployment-annotation-value1=deployment-key1`
+    # service annotation `service-annotation-value1=service-key1`
+    attributes:
+      api.devfile.io/deployment-annotation:
+        - deployment-annotation-boolean: false
+        - deployment-annotation-value1: deployment-key1
+      api.devfile.io/service-annotation:
+        - service-annotation-value1: service-key1
+    container:
+      image: registry.redhat.io/rhel8/nodejs-14:1-46
+      memoryLimit: 1024Mi
+      mountSources: true
+      endpoints:
+        - name: http-3000
+          targetPort: 3000
+  - name: ubi-runtime
+    # this container want to have
+    # deployment annotation `deployment-annotation-boolean=true`, `deployment-annotation-value2=deployment-key2`
+    # service annotation `service-annotation-value1=service-key2`
+    attributes:
+      api.devfile.io/deployment-annotation:
+        - deployment-annotation-boolean: true
+        - deployment-annotation-value2: deployment-key2
+      api.devfile.io/service-annotation:
+        - service-annotation-value2: service-key2
+    container:
+      endpoints:
+        - name: http-8888
+          targetPort: 8888
+      image: registry.access.redhat.com/ubi8/nodejs-12:1-45
+      memoryLimit: 1024Mi
+      mountSources: true
+commands:
+  - exec:
+      commandLine: npm install
+      component: ubi-runtime
+      group:
+        isDefault: true
+        kind: build
+      workingDir: /project
+    id: install-ubi
+  - exec:
+      commandLine: npm start
+      component: ubi-runtime
+      group:
+        isDefault: true
+        kind: run
+      workingDir: /project
+    id: run-ubi
+  - exec:
+      commandLine: npm install
+      component: rhel8-runtime
+      group:
+        isDefault: false
+        kind: build
+      workingDir: /project
+    id: install-rhel
+  - exec:
+      commandLine: npm start
+      component: rhel8-runtime
+      group:
+        isDefault: false
+        kind: run
+      workingDir: /project
+    id: run-rhel

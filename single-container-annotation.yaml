@@ -1,0 +1,60 @@
+schemaVersion: 2.2.0-latest
+metadata:
+  name: nodejs
+  version: 1.0.0
+components:
+  - name: runtime
+    # use component attribute to declare the deployment/service annotation for this container
+    attributes:
+      api.devfile.io/deployment-annotation:
+        - deployment-annotation-value1: deployment-key1
+        - deployment-annotation-value2: deployment-key2
+      api.devfile.io/service-annotation:
+        - service-annotation-value1: service-key1
+    container:
+      endpoints:
+        - name: http-8888
+          targetPort: 8888
+          # use endpoint attribute to declare the ingress/route annotation for this container
+          attributes:
+            api.devfile.io/ingress-annotation:
+              - ingress-annotation-value1: ingress-key1
+      image: registry.access.redhat.com/ubi8/nodejs-12:1-45
+      memoryLimit: 1024Mi
+      mountSources: true
+      sourceMapping: /project
+      command:
+        - npm install
+commands:
+  - exec:
+      commandLine: npm install
+      component: runtime
+      group:
+        isDefault: true
+        kind: build
+      workingDir: /project
+    id: install
+  - exec:
+      commandLine: npm start
+      component: runtime
+      group:
+        isDefault: true
+        kind: run
+      workingDir: /project
+    id: run
+  - exec:
+      commandLine: npm run debug
+      component: runtime
+      group:
+        isDefault: true
+        kind: debug
+      workingDir: /project
+    id: debug
+  - exec:
+      commandLine: npm test
+      component: runtime
+      group:
+        isDefault: true
+        kind: test
+      workingDir: /project
+    id: test

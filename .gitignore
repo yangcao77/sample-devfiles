@@ -1,0 +1,9 @@
+# Files used for debugging
+.vscode/
+
+# Files created by GoLand
+.idea/
+
+# Mac related files
+.DS_Store
+
