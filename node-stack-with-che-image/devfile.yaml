@@ -6,12 +6,6 @@ starterProjects:
     git:
       remotes:
         origin: 'https://github.com/odo-devfiles/nodejs-ex.git'
-projects:
-  -
-    name: nodejs-web-app
-    source:
-      type: git
-      location: "https://github.com/che-samples/web-nodejs-sample"
 components:
   - name: runtime
     container:
