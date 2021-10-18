@@ -16,7 +16,7 @@ starterProjects:
 components:
   - name: runtime
     container:
-      image: quay.io/eclipse/che-nodejs10-ubi:ce0526f
+      image: quay.io/eclipse/che-nodejs10-ubi:next
       memoryLimit: 1024Mi
       mountSources: true
       sourceMapping: /project
