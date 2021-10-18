@@ -1,6 +1,7 @@
 schemaVersion: 2.1.0
 metadata:
-  name: nodejs-test
+  name: nodejs-sample
+  projectType: 'nodejs'
 starterProjects:
   - name: nodejs-starter
     git:
@@ -32,20 +33,4 @@ commands:
       workingDir: /project
       group:
         kind: run
-        isDefault: true
-  - id: debug
-    exec:
-      component: runtime
-      commandLine: npm run debug
-      workingDir: /project
-      group:
-        kind: debug
-        isDefault: true
-  - id: test
-    exec:
-      component: runtime
-      commandLine: npm test
-      workingDir: /project
-      group:
-        kind: test
         isDefault: true
