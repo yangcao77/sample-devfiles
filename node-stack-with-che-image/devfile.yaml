@@ -1,18 +1,17 @@
 schemaVersion: 2.0.0
 metadata:
-  name: nodejs
-  version: 1.0.1
-  displayName: Node.js Runtime
-  description: Stack with Node.js 14
-  icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg
-  tags: ['NodeJS', 'Express', 'ubi8']
-  projectType: 'nodejs'
-  language: 'javascript'
+  name: nodejs-test
 starterProjects:
   - name: nodejs-starter
     git:
       remotes:
         origin: 'https://github.com/odo-devfiles/nodejs-ex.git'
+projects:
+  -
+    name: nodejs-web-app
+    source:
+      type: git
+      location: "https://github.com/che-samples/web-nodejs-sample"
 components:
   - name: runtime
     container:
